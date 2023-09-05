@@ -20,9 +20,11 @@ class TestController extends Controller
         ]);
     }
 
-    public function getTest(int $id): AnonymousResourceCollection
+    public function getTest(int $id): TestRecource
     {
-        return TestRecource::collection(Test::where('id', $id)->get());
+        $test = Test::findOrFail($id);
+
+        return TestRecource::make($test);
     }
 
     public function updateTest(int $id, Request $request): Test
