@@ -12,19 +12,19 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * similar to Spring/.NET but without the business logic(from what i understand).
  */
 
-class Test extends Model
+class Post extends Model
 {
     use HasApiTokens, HasFactory;
 
     protected $attributes = [
-        'test_name' => '',
-        'is_test' => true,
+        'caption' => '',
+        'is_private' => true,
     ];
 
     protected $fillable = [
-        'test_id',
-        'test_name',
-        'is_test',
+        'post_id',
+        'caption',
+        'is_private',
     ];
 
     public function comments(): HasMany

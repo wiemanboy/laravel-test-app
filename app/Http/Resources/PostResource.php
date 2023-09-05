@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TestRecource extends JsonResource
+class PostResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,8 @@ class TestRecource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'test_name' => $this->test_name,
-            'is_test' => $this->is_test,
+            'caption' => $this->caption,
+            'is_private' => $this->is_private,
             'comments' => $this->comments,
         ];
     }

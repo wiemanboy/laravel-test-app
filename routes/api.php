@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\TestController;
+use App\Http\Controllers\PostController;
 use App\Http\Middleware\TestMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,12 +20,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post("test", [TestController::class, "createTest"]);
+Route::post("post", [PostController::class, "createPost"]);
 
-Route::get("/test/{id}", [TestController::class, "getTest"]);
+Route::get("/post/{id}", [PostController::class, "getPost"]);
 
-Route::put("test/{id}", [TestController::class, "updateTest"]);
+Route::put("post/{id}", [PostController::class, "updatePost"]);
 
-Route::delete("test/{id}", [TestController::class, "deleteTest"]);
+Route::delete("post/{id}", [PostController::class, "deletePost"]);
 
-Route::post("test/{id}", [TestController::class, "addComment"]);
+Route::post("post/{id}", [PostController::class, "addComment"]);
