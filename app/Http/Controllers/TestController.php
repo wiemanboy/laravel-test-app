@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\TestRecource;
 use App\Models\Test;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 /*
  * Controller is Controller, same as in spring/.NET
@@ -11,22 +13,22 @@ use App\Models\Test;
 
 class TestController extends Controller
 {
-    public function createTest(string $name): Test
+    public function createTest(Request $request): Test
     {
         return Test::create([
-            'test_name' => $name,
+            'test_name' => $request->input('name')
         ]);
     }
 
-    public function getTest(int $id): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function getTest(int $id): AnonymousResourceCollection
     {
         return TestRecource::collection(Test::where('id', $id)->get());
     }
 
-    public function updateTest(int $id, string $name): Test
+    public function updateTest(int $id, Request $request): Test
     {
         $test = Test::findOrFail($id);
-        $test->test_name = $name;
+        $test->test_name = $request->input('name');
         $test->save();
         return $test;
     }
@@ -38,19 +40,20 @@ class TestController extends Controller
         return $test;
     }
 
-    public function addComment(int $id, string $message): Test
+    public function addComment(int $id, Request $request): Test
     {
         $test = Test::findOrFail($id);
 
         $test->addComment([
-            'message' => $message,
+            'message' => $request->input('message'),
         ]);
 
         return $test;
     }
 
-    public function testBody() {
-
+    public function testBody(Request $request): string
+    {
+        return $request->input('data');
     }
 
 }

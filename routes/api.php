@@ -20,12 +20,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post("test/{name}", [TestController::class, "createTest"]);
+Route::post("test", [TestController::class, "createTest"]);
 
 Route::get("/test/{id}", [TestController::class, "getTest"]);
 
-Route::put("test/{id}/{name}", [TestController::class, "updateTest"]);
+Route::put("test/{id}", [TestController::class, "updateTest"]);
 
 Route::delete("test/{id}", [TestController::class, "deleteTest"]);
 
-Route::post("test/{id}/{comment}", [TestController::class, "addComment"]);
+Route::post("test/{id}", [TestController::class, "addComment"]);
