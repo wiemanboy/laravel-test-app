@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 /*
  * Controller is Controller, same as in spring/.NET
@@ -16,43 +15,51 @@ class PostController extends Controller
     public function createPost(Request $request): Post
     {
         return Post::create([
-            'caption' => $request->input('caption')
+            'caption' => $request->input('caption'),
+            'message' => $request->input('message'),
+            'is_private' => $request->input('isPrivate'),
+            'status' => $request->input('status'),
         ]);
     }
 
     public function getPost(int $id): PostResource
     {
-        $test = Post::findOrFail($id);
+        $post = Post::findOrFail($id);
 
-        return PostResource::make($test);
+        return PostResource::make($post);
     }
 
     public function updatePost(int $id, Request $request): Post
     {
-        $test = Post::findOrFail($id);
-        $test->update([
+        $post = Post::findOrFail($id);
+        $post->update([
             'caption' => $request->input('caption'),
-            'is_private' => $request->input('isPrivate')
+            'message' => $request->input('message'),
+            'is_private' => $request->input('isPrivate'),
+            'status' => $request->input('status'),
         ]);
-        $test->save();
-        return $test;
+        $post->save();
+
+        return $post;
     }
 
     public function deletePost(int $id): Post
     {
-        $test = Post::findOrFail($id);
-        $test->delete();
-        return $test;
+        $post = Post::findOrFail($id);
+        $post->delete();
+
+        return $post;
     }
 
-    public function addComment(int $id, Request $request): Post
+    public function addComment(int $id, Request $request)
     {
-        $test = Post::findOrFail($id);
+        $post = Post::findOrFail($id);
+        $comment = $request->input('message');
 
-        $test->addComment([
-            'message' => $request->input('message'),
+        $post->addComment([
+            'message' => $comment,
         ]);
 
-        return $test;
+        return $comment;
     }
 }

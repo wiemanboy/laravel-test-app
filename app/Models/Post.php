@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PostStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /*
  * Model is basically a class that represents a table in the database,
- * similar to Spring/.NET but without the business logic(from what i understand).
+ * similar to a domain class in Spring/.NET but without the business logic(from what i understand).
  */
 
 class Post extends Model
@@ -18,13 +19,22 @@ class Post extends Model
 
     protected $attributes = [
         'caption' => '',
+        'message' => '',
         'is_private' => true,
+        'status' => 'active',
     ];
 
     protected $fillable = [
         'post_id',
+        'message',
         'caption',
         'is_private',
+        'status',
+    ];
+
+    protected $casts = [
+        'is_private' => 'boolean',
+        'status' => PostStatus::class,
     ];
 
     public function comments(): HasMany

@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('caption');
+            $table->string('message');
             $table->boolean('is_private');
+            $table->enum('status', ['active', 'inactive', 'archived']);
         });
     }
 
