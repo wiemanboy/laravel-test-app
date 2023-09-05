@@ -24,6 +24,7 @@ class Test extends Model
     protected $fillable = [
         'test_id',
         'test_name',
+        'is_test',
     ];
 
     public function comments(): HasMany

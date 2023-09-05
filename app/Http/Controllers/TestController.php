@@ -30,7 +30,10 @@ class TestController extends Controller
     public function updateTest(int $id, Request $request): Test
     {
         $test = Test::findOrFail($id);
-        $test->test_name = $request->input('name');
+        $test->update([
+            'test_name' => $request->input('name'),
+            'is_test' => $request->input('isTest')
+        ]);
         $test->save();
         return $test;
     }
