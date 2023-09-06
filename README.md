@@ -12,4 +12,5 @@
 - Error handling
 - ~~Testing~~
 - Mocking
+- Test database
 - Authentication/Authorization
