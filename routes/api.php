@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Middleware\TestMiddleware;
 use Illuminate\Http\Request;
@@ -21,11 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post("post", [PostController::class, "createPost"]);
-
 Route::get("/post/{id}", [PostController::class, "getPost"]);
-
 Route::put("post/{id}", [PostController::class, "updatePost"]);
-
 Route::delete("post/{id}", [PostController::class, "deletePost"]);
 
-Route::post("post/{id}", [PostController::class, "addComment"]);
+Route::post("comment", [CommentController::class, "addComment"]);

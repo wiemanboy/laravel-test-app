@@ -50,16 +50,4 @@ class PostController extends Controller
 
         return $post;
     }
-
-    public function addComment(int $id, Request $request)
-    {
-        $post = Post::findOrFail($id);
-        $comment = $request->input('message');
-
-        $post->addComment([
-            'message' => $comment,
-        ]);
-
-        return $comment;
-    }
 }
