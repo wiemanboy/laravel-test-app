@@ -25,7 +25,7 @@ class Post extends Model
     ];
 
     protected $fillable = [
-        'post_id',
+        'id',
         'message',
         'caption',
         'is_private',

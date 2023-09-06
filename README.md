@@ -10,6 +10,6 @@
 ## unknowns
 
 - Error handling
-- Testing
+- ~~Testing~~
 - Mocking
 - Authentication/Authorization
