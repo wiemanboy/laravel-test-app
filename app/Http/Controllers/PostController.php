@@ -12,14 +12,16 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function createPost(Request $request): Post
+    public function createPost(Request $request): PostResource
     {
-        return Post::create([
+        $post = Post::create([
             'caption' => $request->input('caption'),
             'message' => $request->input('message'),
             'is_private' => $request->input('isPrivate'),
             'status' => $request->input('status'),
         ]);
+
+        return PostResource::make($post);
     }
 
     public function getPost(int $id): PostResource
@@ -29,7 +31,7 @@ class PostController extends Controller
         return PostResource::make($post);
     }
 
-    public function updatePost(int $id, Request $request): Post
+    public function updatePost(int $id, Request $request): PostResource
     {
         $post = Post::findOrFail($id);
         $post->update([
@@ -40,14 +42,14 @@ class PostController extends Controller
         ]);
         $post->save();
 
-        return $post;
+        return PostResource::make($post);
     }
 
-    public function deletePost(int $id): Post
+    public function deletePost(int $id): PostResource
     {
         $post = Post::findOrFail($id);
         $post->delete();
 
-        return $post;
+        return PostResource::make($post);
     }
 }
