@@ -14,3 +14,5 @@
 - Mocking
 - ~~Test database~~ (https://stackoverflow.com/questions/35227226/laravel-5-use-different-database-for-testing-and-local)
 - Authentication/Authorization
+
+//TODO: when not logged in, respond with 401 instead of redirecting to login page.
