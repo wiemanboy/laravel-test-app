@@ -19,7 +19,7 @@ class Comment extends Model
 
     public function isAppropriate(): bool
     {
-        if (!strlen($this->message) > 100) {
+        if (strlen($this->message) > 100) {
             return false;
         }
         if (stripos($this->message, 'bad')) {
