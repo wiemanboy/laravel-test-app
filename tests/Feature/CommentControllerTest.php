@@ -2,20 +2,20 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Post;
 use Tests\TestCase;
 
 class CommentControllerTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         Post::create([
-            'id' => 100,
+            'id' => 1,
             'caption' => 'caption',
             'message' => 'message',
             'is_private' => false,
