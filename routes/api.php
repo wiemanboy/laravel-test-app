@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Middleware\TestMiddleware;
@@ -17,13 +18,37 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => '/auth'
+
+], function ($router) {
+
+    Route::post('/register', [AuthController::class, "register"]);
+    Route::post('/login', [AuthController::class, "login"]);
+    Route::post('/logout', [AuthController::class, "logout"]);
+    Route::post('/refresh', [AuthController::class, "refresh"]);
+    Route::post('/me', [AuthController::class, "me"]);
 });
 
-Route::post("post", [PostController::class, "createPost"]);
-Route::get("/post/{id}", [PostController::class, "getPost"]);
-Route::put("post/{id}", [PostController::class, "updatePost"]);
-Route::delete("post/{id}", [PostController::class, "deletePost"]);
+Route::group([
 
-Route::post("comment", [CommentController::class, "addComment"]);
+    'middleware' => 'auth:api',
+    'prefix' => '/post'
+
+], function ($router) {
+    Route::post("/", [PostController::class, "createPost"]);
+    Route::get("/{id}", [PostController::class, "getPost"]);
+    Route::put("/{id}", [PostController::class, "updatePost"]);
+    Route::delete("/{id}", [PostController::class, "deletePost"]);
+});
+
+Route::group([
+
+    'middleware' => 'auth:api',
+    'prefix' => '/comment'
+
+], function ($router) {
+    Route::post("/", [CommentController::class, "addComment"]);
+});
