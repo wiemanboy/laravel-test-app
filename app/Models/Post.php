@@ -42,8 +42,8 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function addComment($comment)
+    public function addComment(Comment &$comment): void
     {
-        $this->comments()->create($comment);
+        $this->comments()->save($comment);
     }
 }

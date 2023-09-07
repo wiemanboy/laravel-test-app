@@ -29,6 +29,6 @@ class CommentControllerTest extends TestCase
             'message' => 'message',
         ]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(201);
     }
 }

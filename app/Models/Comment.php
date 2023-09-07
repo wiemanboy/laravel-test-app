@@ -16,4 +16,16 @@ class Comment extends Model
     protected $fillable = [
         'message',
     ];
+
+    public function isAppropriate(): bool
+    {
+        if (!strlen($this->message) > 100) {
+            return false;
+        }
+        if (stripos($this->message, 'bad')) {
+            return false;
+        }
+
+        return true;
+    }
 }
