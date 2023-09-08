@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get("/post/{id}", [PostController::class, "getPost"]);
+Route::get('post', [PostController::class, "getPosts"]);
+
 
 Route::group([
 

@@ -13,5 +13,5 @@
 - ~~Testing~~
 - ~~Test database~~ (https://stackoverflow.com/questions/35227226/laravel-5-use-different-database-for-testing-and-local)
 - ~~Authentication/Authorization~~
-- pagination
+- ~~pagination~~
 - ?Mocking

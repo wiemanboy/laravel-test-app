@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\PostResource;
+use App\Http\Resources\PostsResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 
 /*
@@ -62,6 +65,32 @@ class PostController extends Controller
         $post->delete();
 
         return PostResource::make($post);
+    }
+
+    public function getPosts(Request $request): AnonymousResourceCollection
+    {
+        $query = Post::with('user')
+            ->where('is_private', false);
+
+        if ($request->has('status') && $request->input('status') !== null ) {
+            $query->where('status', $request->input('status'));
+        }
+
+        if ($request->has('owner')) {
+            $query->whereHas('user', function ($query) use ($request) {
+                $query->where('username', 'like', '%' . $request->input('owner') . '%');
+            });
+        }
+
+        if ($request->has('caption')) {
+            $query->where('caption', 'like', '%' . $request->input('caption') . '%');
+        }
+
+        if ($request->has('order_by')) {
+            $query->orderBy($request->input('order_by'), $request->input('order'));
+        }
+
+        return PostsResource::collection($query->paginate($request->input('per_page', 15)));
     }
 
     private function checkIfAllowed($post):void {
