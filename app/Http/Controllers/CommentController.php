@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    //TODO: figure out why this returns a 404
     public function addComment(Request $request)
     {
         $comment = new Comment([

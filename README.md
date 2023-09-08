@@ -15,3 +15,4 @@
 - ~~Authentication/Authorization~~
 - ~~pagination~~
 - ?Mocking
+- ?Debugger
