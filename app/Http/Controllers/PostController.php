@@ -36,6 +36,10 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
 
+        if ($post->is_private) {
+            $this->checkIfAllowed($post);
+        }
+
         return PostResource::make($post);
     }
 
@@ -72,7 +76,7 @@ class PostController extends Controller
         $query = Post::with('user')
             ->where('is_private', false);
 
-        if ($request->has('status') && $request->input('status') !== null ) {
+        if ($request->has('status') && $request->input('status') !== null) {
             $query->where('status', $request->input('status'));
         }
 
@@ -93,8 +97,9 @@ class PostController extends Controller
         return PostsResource::collection($query->paginate($request->input('per_page', 15)));
     }
 
-    private function checkIfAllowed($post):void {
-        if (! Gate::allows('update-post', $post)) {
+    private function checkIfAllowed($post): void
+    {
+        if (!Gate::allows('access-post', $post)) {
             abort(403);
         }
     }
