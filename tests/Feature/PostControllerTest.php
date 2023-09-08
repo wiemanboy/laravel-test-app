@@ -40,7 +40,9 @@ class PostControllerTest extends TestCase
 
         Post::factory()->create(['id' => $id, 'user_id' => $this->user->id]);
 
-        $response = $this->get('/api/post/' . $id);
+        $response = $this
+            ->actingAs($this->user)
+            ->get('/api/post/' . $id);
 
         $response
             ->assertStatus(200)
