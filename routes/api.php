@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
-use App\Http\Middleware\CanAccessPost;
 use Illuminate\Support\Facades\Route;
 
 /*

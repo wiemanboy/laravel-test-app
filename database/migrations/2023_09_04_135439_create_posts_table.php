@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('caption');
-            $table->string('message');
+            $table->string('caption', 255);
+            $table->string('message', 2555);
             $table->boolean('is_private');
             $table->enum('status', ['active', 'inactive', 'archived']);
         });

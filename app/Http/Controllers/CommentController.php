@@ -21,7 +21,7 @@ class CommentController extends Controller
             return response()->json(['message' => 'Comment is not appropriate'], 400);
         }
 
-        $post = Post::findOrFail($request->input('postId'));
+        $post = Post::findOrFail($request->input('post_id'));
 
         $post->addComment($comment);
 

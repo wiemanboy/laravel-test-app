@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Post;
 use Tests\TestCase;
@@ -10,22 +11,28 @@ class CommentControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    private int $post_id = 1;
+    private User $user;
+
+
     protected function setUp(): void
     {
         parent::setUp();
 
-        Post::create([
-            'id' => 1,
-            'caption' => 'caption',
-            'message' => 'message',
-            'is_private' => false,
+        $this->user = User::factory()->create();
+
+        Post::factory()->create([
+            'id' => $this->post_id,
+            'user_id' => $this->user->id,
         ]);
     }
 
     public function test_add_comment_returns_comment(): void
     {
-        $response = $this->post('/api/comment', [
-            'postId' => 1,
+        $response = $this
+            ->actingAs($this->user)
+            ->post('/api/comment', [
+            'post_id' => $this->post_id,
             'message' => 'message',
         ]);
 
