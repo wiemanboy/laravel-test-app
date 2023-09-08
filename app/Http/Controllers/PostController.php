@@ -17,7 +17,7 @@ class PostController extends Controller
         $post = Post::create([
             'caption' => $request->input('caption'),
             'message' => $request->input('message'),
-            'is_private' => $request->input('isPrivate'),
+            'is_private' => $request->input('is_private'),
             'status' => $request->input('status'),
         ]);
 
@@ -37,7 +37,7 @@ class PostController extends Controller
         $post->update([
             'caption' => $request->input('caption'),
             'message' => $request->input('message'),
-            'is_private' => $request->input('isPrivate'),
+            'is_private' => $request->input('is_private'),
             'status' => $request->input('status'),
         ]);
         $post->save();
