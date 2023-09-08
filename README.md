@@ -15,4 +15,4 @@
 - ~~Authentication/Authorization~~
 - ~~pagination~~
 - ?Mocking
-- ?Debugger
+- ?Debugger (works in "testing" environment, but not in "local")
