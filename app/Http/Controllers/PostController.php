@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
-use http\Env\Response;
-use Illuminate\Auth\Access\Gate;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 /*
  * Controller is Controller, same as in spring/.NET
@@ -42,6 +39,9 @@ class PostController extends Controller
     public function updatePost(int $id, Request $request): PostResource
     {
         $post = Post::findOrFail($id);
+
+        $this->checkIfAllowed($post);
+
         $post->update([
             'caption' => $request->input('caption'),
             'message' => $request->input('message'),
@@ -56,8 +56,17 @@ class PostController extends Controller
     public function deletePost(int $id): PostResource
     {
         $post = Post::findOrFail($id);
+
+        $this->checkIfAllowed($post);
+
         $post->delete();
 
         return PostResource::make($post);
+    }
+
+    private function checkIfAllowed($post):void {
+        if (! Gate::allows('update-post', $post)) {
+            abort(403);
+        }
     }
 }

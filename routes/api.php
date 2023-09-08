@@ -25,8 +25,8 @@ Route::group([
 
 ], function ($router) {
     Route::post("/", [PostController::class, "createPost"]);
-    Route::put("/{id}", [PostController::class, "updatePost"] )->middleware(CanAccessPost::class);
-    Route::delete("/{id}", [PostController::class, "deletePost"])->middleware(CanAccessPost::class);
+    Route::put("/{id}", [PostController::class, "updatePost"] );
+    Route::delete("/{id}", [PostController::class, "deletePost"]);
 });
 
 Route::group([
