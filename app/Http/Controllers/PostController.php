@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
+use http\Env\Response;
+use Illuminate\Auth\Access\Gate;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /*
  * Controller is Controller, same as in spring/.NET
@@ -14,7 +19,10 @@ class PostController extends Controller
 {
     public function createPost(Request $request): PostResource
     {
+        $user = Auth::user();
+
         $post = Post::create([
+            'user_id' => $user->getAuthIdentifier(),
             'caption' => $request->input('caption'),
             'message' => $request->input('message'),
             'is_private' => $request->input('is_private'),

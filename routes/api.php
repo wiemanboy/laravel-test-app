@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
+use App\Http\Middleware\CanAccessPost;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get("/post/{id}", [PostController::class, "getPost"]);
+
 Route::group([
 
     'middleware' => 'auth:api',
@@ -22,9 +25,8 @@ Route::group([
 
 ], function ($router) {
     Route::post("/", [PostController::class, "createPost"]);
-    Route::get("/{id}", [PostController::class, "getPost"]);
-    Route::put("/{id}", [PostController::class, "updatePost"]);
-    Route::delete("/{id}", [PostController::class, "deletePost"]);
+    Route::put("/{id}", [PostController::class, "updatePost"] )->middleware(CanAccessPost::class);
+    Route::delete("/{id}", [PostController::class, "deletePost"])->middleware(CanAccessPost::class);
 });
 
 Route::group([

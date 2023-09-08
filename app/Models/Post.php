@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\PostStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -26,6 +27,7 @@ class Post extends Model
 
     protected $fillable = [
         'id',
+        'user_id',
         'message',
         'caption',
         'is_private',
@@ -40,6 +42,11 @@ class Post extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function addComment(Comment &$comment): void
