@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Comment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use function Webmozart\Assert\Tests\StaticAnalysis\lengthBetween;
 
@@ -20,8 +21,8 @@ class PostFactory extends Factory
         return [
             'caption' => fake()->sentence(),
             'message' => fake()->paragraph(10),
-            'is_private' => false,
-            'status' => 'active',
+            'is_private' => fake()->boolean(),
+            'status' => fake()->randomElement(['active', 'inactive', 'archived']),
         ];
     }
 }
