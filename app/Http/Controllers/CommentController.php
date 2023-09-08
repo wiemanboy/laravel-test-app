@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CommentController extends Controller
 {
-    //TODO: figure out why this returns a 404
     public function addComment(Request $request)
     {
         $comment = new Comment([
@@ -19,13 +18,22 @@ class CommentController extends Controller
         ]);
 
         if (!$comment->isAppropriate()) {
-            return response()->json(['message' => 'Comment is not appropriate'], 400);
+            abort(400);
         }
 
         $post = Post::findOrFail($request->input('post_id'));
 
+        $this->checkIfAllowed($post);
+
         $post->addComment($comment);
 
         return CommentResource::make($comment);
+    }
+
+    private function checkIfAllowed($post): void
+    {
+        if (!Gate::allows('access-post', $post)) {
+            abort(403);
+        }
     }
 }
