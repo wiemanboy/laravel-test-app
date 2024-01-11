@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,4 +38,13 @@ Route::group([
 
 ], function ($router) {
     Route::post("/", [CommentController::class, "addComment"]);
+});
+
+Route::group([
+
+    'middleware' => 'auth:api',
+    'prefix' => '/transactions'
+
+], function ($router) {
+    Route::get("/", [TransactionController::class, "getTransactions"]);
 });
